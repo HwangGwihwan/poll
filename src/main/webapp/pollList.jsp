@@ -19,10 +19,10 @@
 	ArrayList<Question> list = questionDao.selelctQuestionList(paging);
 	
 	// 오늘 날짜 구하기
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-    String today = sdf.format(new Date());
-    
-    System.out.println(today);
+	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+	String today = sdf.format(new Date());
+	
+	System.out.println(today);
 %>
 <!DOCTYPE html>
 <html>
