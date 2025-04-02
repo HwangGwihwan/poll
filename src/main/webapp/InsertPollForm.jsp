@@ -19,20 +19,20 @@
 				</tr>
 				<tr>
 					<td rowspan="8"></td>
-					<td>1) <input type="text" name="item"></td>
-					<td>2) <input type="text" name="item"></td>
+					<td>1) <input type="text" name="content"></td>
+					<td>2) <input type="text" name="content"></td>
 				</tr>
 				<tr>
-					<td>3) <input type="text" name="item"></td>
-					<td>4) <input type="text" name="item"></td>
+					<td>3) <input type="text" name="content"></td>
+					<td>4) <input type="text" name="content"></td>
 				</tr>
 				<tr>
-					<td>5) <input type="text" name="item"></td>
-					<td>6) <input type="text" name="item"></td>
+					<td>5) <input type="text" name="content"></td>
+					<td>6) <input type="text" name="content"></td>
 				</tr>
 				<tr>
-					<td>7) <input type="text" name="item"></td>
-					<td>8) <input type="text" name="item"></td>
+					<td>7) <input type="text" name="content"></td>
+					<td>8) <input type="text" name="content"></td>
 				</tr>
 				<tr>
 					<td>시작일</td>

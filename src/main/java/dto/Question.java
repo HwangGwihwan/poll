@@ -7,7 +7,6 @@ public class Question {
 	private String enddate;
 	private String createdate;
 	private int type;
-	private int active;
 	
 	public int getNum() {
 		return num;
@@ -44,11 +43,5 @@ public class Question {
 	}
 	public void setType(int type) {
 		this.type = type;
-	}
-	public int getActive() {
-		return active;
-	}
-	public void setActive(int active) {
-		this.active = active;
 	}
 }
