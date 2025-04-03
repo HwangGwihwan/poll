@@ -6,6 +6,63 @@ import dto.Question;
 
 // Table : question crud
 public class QuestionDao {
+	public void deleteQuestion(int num) throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		String sql = "delete from question where num = ?";
+		
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/poll", "root", "java1234");
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, num);
+		stmt.executeUpdate();
+		
+		conn.close();
+	}
+	
+	public Question selectQuestion(int num) throws ClassNotFoundException, SQLException {
+		
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "select title, startdate, enddate, type from question where num = ?";
+		
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/poll", "root", "java1234");
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, num);
+		rs = stmt.executeQuery();
+		rs.next();
+		
+		Question question = new Question();
+		question.setTitle(rs.getString("title"));
+		question.setStartdate(rs.getString("startdate"));
+		question.setEnddate(rs.getString("enddate"));
+		question.setType(rs.getInt("type"));
+		
+		conn.close();
+		return question;
+	}
+	
+	
+	public void updateQuestion(Question question) throws ClassNotFoundException, SQLException {
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		String sql = "update question set title = ?, startdate = ?, enddate = ?, type = ? where num = ?";
+		
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/poll", "root", "java1234");
+		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, question.getTitle());
+		stmt.setString(2, question.getStartdate());
+		stmt.setString(3, question.getEnddate());
+		stmt.setInt(4, question.getType());
+		stmt.setInt(5, question.getNum());
+		stmt.executeUpdate();
+		
+		conn.close();
+	}
+	
 	public ArrayList<Question> selelctQuestionList(Paging p) throws ClassNotFoundException, SQLException {
 		ArrayList<Question> list = new ArrayList<>();
 		
@@ -31,6 +88,7 @@ public class QuestionDao {
 			list.add(question);
 		}
 		
+		conn.close();
 		return list;
 	}
 	
@@ -49,6 +107,7 @@ public class QuestionDao {
 		rs.next();
 		total = rs.getInt("cnt");
 		
+		conn.close();
 		return total;
 	}
 	

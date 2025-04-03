@@ -10,12 +10,14 @@
 	if (request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
-	int rowPerPage = 3;
+	int rowPerPage = 4;
 	Paging paging = new Paging();
 	paging.setCurrentPage(currentPage);
 	paging.setRowPerPage(rowPerPage);
 	
 	QuestionDao questionDao = new QuestionDao();
+	ItemDao itemDao = new ItemDao();
+	
 	int lastPage = paging.getLastPage(questionDao.getTotal());
 	
 	ArrayList<Question> list = questionDao.selelctQuestionList(paging);
@@ -24,7 +26,6 @@
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 	String today = sdf.format(new Date());
 	
-	System.out.println(today);
 %>
 <!DOCTYPE html>
 <html>
@@ -43,6 +44,10 @@
 				<th>시작일~종료일</th>
 				<th>type</th>
 				<th>투표</th>
+				<th>삭제</th>
+				<th>수정</th>
+				<th>종료일자수정</th>
+				<th>결과</th>
 			</tr>
 			<%
 				for (Question question : list) {
@@ -68,8 +73,39 @@
 						<%
 							}
 						%>
-						
 						</td>
+						<td>
+						<%
+							int count = itemDao.voteCount(question.getNum());
+							if (count > 0) {
+						%>
+								삭제불가
+						<%
+							} else {
+						%>
+								<a href='/poll/deletePoll.jsp?qnum=<%=question.getNum()%>'>삭제</a>
+						<%
+							}
+						%>
+						</td>
+						<td> <!-- 누군가 투표를 했으면 전체수정 불가능 -->
+						<%
+							if (count > 0) {
+						%>
+								수정불가
+						<%
+							} else {
+						%>
+								<a href='/poll/updatePollForm.jsp?num=<%=question.getNum()%>'>수정</a>
+						<%
+							}
+							
+						%>
+						</td>
+						<td>
+							<a href='/poll/updateQuestionEnddateForm.jsp?num=<%=question.getNum()%>'>종료날짜 수정</a>
+						</td>
+						<td></td>
 					</tr>
 			<%
 				}
