@@ -42,7 +42,7 @@
 				<th>번호</th>
 				<th>제목</th>
 				<th>시작일~종료일</th>
-				<th>type</th>
+				<th>복수투표</th>
 				<th>투표</th>
 				<th>삭제</th>
 				<th>수정</th>
@@ -56,7 +56,19 @@
 						<td><%=question.getNum()%></td>
 						<td><%=question.getTitle()%></td>
 						<td><%=question.getStartdate()%> ~ <%=question.getEnddate()%></td>
-						<td><%=question.getType()%></td>
+						<td>
+						<%
+							if (question.getType() == 0) {
+						%>
+								불가능
+						<%
+							} else {
+						%>
+								가능
+						<%
+							}
+						%>
+						</td>
 						<td>
 						<%
 							if (today.compareTo(question.getStartdate()) < 0) { // 투표시작전

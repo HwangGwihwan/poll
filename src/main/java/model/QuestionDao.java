@@ -84,6 +84,7 @@ public class QuestionDao {
 			question.setTitle(rs.getString("title"));
 			question.setStartdate(rs.getString("startdate"));
 			question.setEnddate(rs.getString("enddate"));
+			question.setType(rs.getInt("type"));
 			
 			list.add(question);
 		}
