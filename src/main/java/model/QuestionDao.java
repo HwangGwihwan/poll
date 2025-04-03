@@ -11,31 +11,22 @@ public class QuestionDao {
 		
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "select num, title, startdate, enddate, type from question limit ?, ?";
+		
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/poll", "root", "java1234");
-
-// 페이징....
-//		PreparedStatement stmt1 = null;
-//		ResultSet rs1 = null;
-//		String sql1 = "select count(*) cnt from question";
-//		stmt1 = conn.prepareStatement(sql1);
-//		rs1 = stmt1.executeQuery();
-//		rs1.next();
+		stmt = conn.prepareStatement(sql);
+		stmt.setInt(1, p.getBeginRow());
+		stmt.setInt(2, p.getRowPerPage());
+		rs = stmt.executeQuery();
 		
-		PreparedStatement stmt2 = null;
-		ResultSet rs2 = null;
-		
-		String sql2 = "select num, title, startdate, enddate, type from question limit ?, ?";
-		stmt2 = conn.prepareStatement(sql2);
-		stmt2.setInt(1, p.getBeginRow());
-		stmt2.setInt(2, p.getRowPerPage());
-		rs2 = stmt2.executeQuery();
-		
-		while (rs2.next()) {
+		while (rs.next()) {
 			Question question = new Question();
-			question.setNum(rs2.getInt("num"));
-			question.setTitle(rs2.getString("title"));
-			question.setStartdate(rs2.getString("startdate"));
-			question.setEnddate(rs2.getString("enddate"));
+			question.setNum(rs.getInt("num"));
+			question.setTitle(rs.getString("title"));
+			question.setStartdate(rs.getString("startdate"));
+			question.setEnddate(rs.getString("enddate"));
 			
 			list.add(question);
 		}
@@ -43,6 +34,23 @@ public class QuestionDao {
 		return list;
 	}
 	
+	public int getTotal() throws ClassNotFoundException, SQLException {
+		int total = 0;
+		
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		Connection conn = null;
+		PreparedStatement stmt = null;
+		ResultSet rs = null;
+		String sql = "select count(*) cnt from question";
+		
+		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/poll", "root", "java1234");
+		stmt = conn.prepareStatement(sql);
+		rs = stmt.executeQuery();
+		rs.next();
+		total = rs.getInt("cnt");
+		
+		return total;
+	}
 	
 	// 입력 후 자동으로 생성된 키값을 반환값
 	public int insertQuestion(Question question) throws ClassNotFoundException, SQLException {

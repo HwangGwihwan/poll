@@ -10,12 +10,14 @@
 	if (request.getParameter("currentPage") != null) {
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
-	int rowPerPage = 10;
+	int rowPerPage = 3;
 	Paging paging = new Paging();
 	paging.setCurrentPage(currentPage);
 	paging.setRowPerPage(rowPerPage);
 	
 	QuestionDao questionDao = new QuestionDao();
+	int lastPage = paging.getLastPage(questionDao.getTotal());
+	
 	ArrayList<Question> list = questionDao.selelctQuestionList(paging);
 	
 	// 오늘 날짜 구하기
@@ -73,5 +75,19 @@
 				}
 			%>
 		</table>
+		<!-- 페이징 -->
+		<%
+			if (currentPage > 1) {
+		%>
+				<a href='/poll/pollList.jsp?currentPage=<%=currentPage - 1%>'>[이전]</a>
+		<%
+			}
+		
+			if (currentPage < lastPage) {
+		%>
+				<a href='/poll/pollList.jsp?currentPage=<%=currentPage + 1%>'>[다음]</a>
+		<%
+			}
+		%>
 	</body>
 </html>
