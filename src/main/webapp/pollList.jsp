@@ -20,7 +20,7 @@
 	
 	int lastPage = paging.getLastPage(questionDao.getTotal());
 	
-	ArrayList<Question> list = questionDao.selelctQuestionList(paging);
+	ArrayList<HashMap<String, Object>> list = questionDao.selelctQuestionList(paging);
 	
 	// 오늘 날짜 구하기
 	SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -43,6 +43,7 @@
 				<th>제목</th>
 				<th>시작일~종료일</th>
 				<th>복수투표</th>
+				<th>현재투표현황</th> 
 				<th>투표</th>
 				<th>삭제</th>
 				<th>수정</th>
@@ -50,15 +51,15 @@
 				<th>결과</th>
 			</tr>
 			<%
-				for (Question question : list) {
+				for (HashMap<String, Object> map : list) {
 			%>
 					<tr>
-						<td><%=question.getNum()%></td>
-						<td><%=question.getTitle()%></td>
-						<td><%=question.getStartdate()%> ~ <%=question.getEnddate()%></td>
+						<td><%=map.get("num")%></td>
+						<td><%=map.get("title")%></td>
+						<td><%=map.get("startdate")%> ~ <%=map.get("enddate")%></td>
 						<td>
 						<%
-							if (question.getType() == 0) {
+							if ((int)map.get("type") == 0) {
 						%>
 								불가능
 						<%
@@ -69,13 +70,14 @@
 							}
 						%>
 						</td>
+						<td><%=map.get("cnt")%></td>
 						<td>
 						<%
-							if (today.compareTo(question.getStartdate()) < 0) { // 투표시작전
+							if (today.compareTo((String)map.get("startdate")) < 0){ // 투표시작전
 						%>
 								투표시작전
 						<%
-							} else if (today.compareTo(question.getEnddate()) > 0) { // 투표이후
+							} else if (today.compareTo((String)map.get("enddate")) > 0) { // 투표이후
 						%>
 								투표종료
 						<%
@@ -88,36 +90,57 @@
 						</td>
 						<td>
 						<%
-							int count = itemDao.voteCount(question.getNum());
-							if (count > 0) {
+							if ((int)map.get("cnt") > 0) {
 						%>
 								삭제불가
 						<%
 							} else {
 						%>
-								<a href='/poll/deletePoll.jsp?qnum=<%=question.getNum()%>'>삭제</a>
+								<a href='/poll/deletePoll.jsp?qnum=<%=map.get("num")%>'>삭제</a>
 						<%
 							}
 						%>
 						</td>
 						<td> <!-- 누군가 투표를 했으면 전체수정 불가능 -->
 						<%
-							if (count > 0) {
+							if ((int)map.get("cnt") > 0) {
 						%>
 								수정불가
 						<%
 							} else {
 						%>
-								<a href='/poll/updatePollForm.jsp?num=<%=question.getNum()%>'>수정</a>
+								<a href='/poll/updatePollForm.jsp?num=<%=map.get("num")%>'>수정</a>
 						<%
 							}
 							
 						%>
 						</td>
 						<td>
-							<a href='/poll/updateQuestionEnddateForm.jsp?num=<%=question.getNum()%>'>종료날짜 수정</a>
+						<%
+							if (today.compareTo((String)map.get("enddate")) > 0) {
+						%>
+								수정불가
+						<%
+							} else {
+						%>
+								<a href='/poll/updateQuestionEnddateForm.jsp?num=<%=map.get("num")%>'>종료날짜 수정</a>
+						<%
+							}
+						%>
 						</td>
-						<td></td>
+						<td>
+						<%
+							if (today.compareTo((String)map.get("enddate")) > 0) {
+						%>
+								<a href=''>결과보기</a>
+						<%
+							} else {
+						%>
+								투표진행중
+						<%
+							}
+						%>
+						</td>
 					</tr>
 			<%
 				}
