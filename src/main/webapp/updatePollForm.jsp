@@ -19,24 +19,35 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>updatePollForm</title>
+		<!-- Latest compiled and minified CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Latest compiled JavaScript -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+		<style>
+			body {
+				text-align: center;
+			}
+		</style>
 	</head>
 	<body>
+		<!-- nav.jsp include -->
+		<jsp:include page="/inc/nav.jsp"></jsp:include>
 		<h1>투표 수정</h1>
 		<form action="/poll/updatePollAction.jsp" method="post">
 			<input type="hidden" name="num" value='<%=num%>'>
-			<table border="1">
+			<table class="table table-bordered table-striped table-hover">
 				<tr>
 					<td>질문</td>
 					<td colspan="2">
-						<input type="text" name="title" value='<%=question.getTitle()%>'>
+						<input class="col col-sm-5 rounded" type="text" name="title" value='<%=question.getTitle()%>'>
 					</td>
 				</tr>
 				<tr>
-					<td rowspan="8"></td>
+					<td rowspan="7"></td>
 					<%
 						for (Item item : list) {
 					%>
-							<td><%=i%>) <input type="text" name="content" value='<%=item.getContent()%>'></td>
+							<td><%=i%>) <input class="rounded" type="text" name="content" value='<%=item.getContent()%>'></td>
 					<%
 							if (i % 2 == 0) {
 					%>
@@ -47,7 +58,7 @@
 					
 						while (i <= 8) {
 					%>
-							<td><%=i%>) <input type="text" name="content"></td>
+							<td><%=i%>) <input class="rounded" type="text" name="content"></td>
 					<%
 							if (i % 2 == 0) {
 					%>
@@ -59,13 +70,13 @@
 					%>
 					<td>시작일</td>
 					<td>
-						<input type="date" name="startdate" value='<%=question.getStartdate()%>'>
+						<input class="rounded" type="date" name="startdate" value='<%=question.getStartdate()%>'>
 					</td>
 				</tr>
 				<tr>
 					<td>종료일</td>
 					<td>
-						<input type="date" name="enddate" value='<%=question.getEnddate()%>'>
+						<input class="rounded" type="date" name="enddate" value='<%=question.getEnddate()%>'>
 					</td>
 				</tr>
 				<tr>
@@ -76,8 +87,7 @@
 					</td>
 				</tr>				
 			</table>
-			<button type="submit">수정하기</button>
-			<a href="/poll/pollList.jsp">리스트</a>
+			<button class="btn btn-outline-success" type="submit">수정하기</button>
 		</form>
 	</body>
 </html>

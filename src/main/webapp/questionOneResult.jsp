@@ -17,8 +17,6 @@
 	// 3) 총투표수
 	int totalCount = itemDao.selectItemCountByQnum(qnum);
 	
-	
-
 %>
 <!-- View -->
 <!DOCTYPE html>
@@ -26,12 +24,21 @@
 	<head>
 		<meta charset="UTF-8">
 		<title></title>
+		<!-- Latest compiled and minified CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Latest compiled JavaScript -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+		<style>
+			body {
+				text-align: center;
+			}
+		</style>
 	</head>
 	<body>
 		<!-- nav.jsp include -->
 		<jsp:include page="/inc/nav.jsp"></jsp:include>
 		<h1><%=qnum%>번 설문 투표결과</h1>
-		<table border="1" width="80%">
+		<table class="table table-bordered table-striped table-hover">
 			<tr>
 				<td colspan="4">
 					Q : <%=question.getTitle()%>
@@ -55,12 +62,10 @@
 						<!-- 각 count값에 대한 백분율 값 -->
 						<%
 							int percentage = (int)(Math.round((double)i.getCount() / totalCount * 100));
-							for (int n = 0; n < percentage; n++) {
 						%>
-								*
-						<%
-							}
-						%>
+							<div class="progress">
+								<div class="progres-bar bg-info" style='width:<%=percentage%>%'></div>
+							</div>
 						</td>
 						<td><%=i.getCount()%></td>
 					</tr>

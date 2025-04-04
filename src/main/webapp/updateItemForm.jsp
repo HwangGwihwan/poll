@@ -27,12 +27,21 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>투표하기</title>
+		<!-- Latest compiled and minified CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+		<!-- Latest compiled JavaScript -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+		<style>
+			body {
+				text-align: center;
+			}
+		</style>
 	</head>
 	<body>
 		<h1>투표하기</h1>
 		<form action="/poll/updateItemAction.jsp" method="post">
 			<input type="hidden" name="qnum" value="<%=qnum%>">
-			<table border="1">
+			<table class="table table-dark">
 				<tr>
 					<td>
 						Q : <%=question.getTitle()%>
@@ -64,7 +73,7 @@
 					</td>
 				</tr>
 			</table>
-			<button type="submit">투표</button>
+			<button class="btn btn-outline-success" type="submit">투표</button>
 		</form>
 	</body>
 </html>

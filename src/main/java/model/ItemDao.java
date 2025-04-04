@@ -22,6 +22,7 @@ public class ItemDao {
 			count = rs.getInt("cnt");
 		}
 		
+		conn.close();
 		return count;
 	}
 	
@@ -42,6 +43,8 @@ public class ItemDao {
 		} else {
 			System.out.println("itemDao.updateItemCountPlus 입력실패");
 		}
+		
+		conn.close();
 	}
 	
 	public void deleteItem(int qnum) throws ClassNotFoundException, SQLException {

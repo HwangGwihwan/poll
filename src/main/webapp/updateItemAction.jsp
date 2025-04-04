@@ -15,8 +15,6 @@
 		itemDao.updateItemCountPlus(qnum, Integer.parseInt(inum));
 	}
 	
-
-
 	// View 존재하지 않는 프로세스 : JSP(Java Server Page)일 필요가 없다!
 	// -> 다른 요청이 필요 -> Backend(Server)에서 요청불가 -> 브라우저에 요청 강제화(<a> 강제화)
 	response.sendRedirect("/poll/pollList.jsp");

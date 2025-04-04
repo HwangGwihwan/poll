@@ -4,6 +4,16 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>insertPollForm</title>
+		<!-- Latest compiled and minified CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+		
+		<!-- Latest compiled JavaScript -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+		<style>
+			body {
+				text-align: center;
+			}
+		</style>
 	</head>
 	<body>
 		<!-- nav.jsp include -->
@@ -12,40 +22,40 @@
 		<hr>
 		<h2>설문작성</h2>
 		<form action="/poll/insertPollAction.jsp" method="post">
-			<table border="1">
+			<table class="table table-bordered table-striped table-hover">
 				<tr>
 					<td>질문</td>
 					<td colspan="2">
-						<input type="text" name="title">
+						<input class="col col-sm-5 rounded" type="text" name="title">
 					</td>
 				</tr>
 				<tr>
-					<td rowspan="8"></td>
-					<td>1) <input type="text" name="content"></td>
-					<td>2) <input type="text" name="content"></td>
+					<td rowspan="7"></td>
+					<td>1) <input class="rounded" type="text" name="content"></td>
+					<td>2) <input class="rounded" type="text" name="content"></td>
 				</tr>
 				<tr>
-					<td>3) <input type="text" name="content"></td>
-					<td>4) <input type="text" name="content"></td>
+					<td>3) <input class="rounded" type="text" name="content"></td>
+					<td>4) <input class="rounded" type="text" name="content"></td>
 				</tr>
 				<tr>
-					<td>5) <input type="text" name="content"></td>
-					<td>6) <input type="text" name="content"></td>
+					<td>5) <input class="rounded" type="text" name="content"></td>
+					<td>6) <input class="rounded" type="text" name="content"></td>
 				</tr>
 				<tr>
-					<td>7) <input type="text" name="content"></td>
-					<td>8) <input type="text" name="content"></td>
+					<td>7) <input class="rounded" type="text" name="content"></td>
+					<td>8) <input class="rounded" type="text" name="content"></td>
 				</tr>
 				<tr>
 					<td>시작일</td>
 					<td>
-						<input type="date" name="startdate">
+						<input class="rounded" type="date" name="startdate">
 					</td>
 				</tr>
 				<tr>
 					<td>종료일</td>
 					<td>
-						<input type="date" name="enddate">
+						<input class="rounded" type="date" name="enddate">
 					</td>
 				</tr>
 				<tr>
@@ -56,9 +66,8 @@
 					</td>
 				</tr>				
 			</table>
-			<button type="submit">작성하기</button>
-			<button type="reset">다시쓰기</button>
-			<a href="/poll/pollList.jsp">리스트</a>
+			<button class="btn btn-outline-success" type="submit">작성하기</button>
+			<button class="btn btn-outline-danger" type="reset">다시쓰기</button>
 		</form>
 	</body>
 </html>
