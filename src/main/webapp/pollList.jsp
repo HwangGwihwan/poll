@@ -32,12 +32,19 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>pollList</title>
+		<!-- Latest compiled and minified CSS -->
+		<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+		
+		<!-- Latest compiled JavaScript -->
+		<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 	</head>
 	<body>
+		<!-- nav.jsp include -->
+		<jsp:include page="/inc/nav.jsp"></jsp:include>
 		<h1>설문리스트</h1>
 		<!-- foreach문 ArrayList<Question> list 출력 title
 		링크(startdate) <= 오늘날짜 <= enddate) 투표시작전, 투표종료, 투표하기-->
-		<table border="1">
+		<table class="table table-dark table-hover">
 			<tr>
 				<th>번호</th>
 				<th>제목</th>
@@ -83,7 +90,7 @@
 						<%
 							} else { // 투표가능
 						%>
-								<a href=''>투표하기</a>
+								<a href='/poll/updateItemForm.jsp?qnum=<%=map.get("num")%>'>투표하기</a>
 						<%
 							}
 						%>
@@ -132,7 +139,7 @@
 						<%
 							if (today.compareTo((String)map.get("enddate")) > 0) {
 						%>
-								<a href=''>결과보기</a>
+								<a class="btn btn-outline-danger" href='/poll/questionOneResult.jsp?qnum=<%=map.get("num")%>'>결과보기</a>
 						<%
 							} else {
 						%>

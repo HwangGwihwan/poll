@@ -21,24 +21,28 @@ public class QuestionDao {
 	}
 	
 	public Question selectQuestion(int num) throws ClassNotFoundException, SQLException {
+		Question question = null;
+		
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "select title, startdate, enddate, type from question where num = ?";
+		String sql = "select num, title, startdate, enddate, type from question where num = ?";
 		
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/poll", "root", "java1234");
 		stmt = conn.prepareStatement(sql);
 		stmt.setInt(1, num);
 		rs = stmt.executeQuery();
-		rs.next();
 		
-		Question question = new Question();
-		question.setTitle(rs.getString("title"));
-		question.setStartdate(rs.getString("startdate"));
-		question.setEnddate(rs.getString("enddate"));
-		question.setType(rs.getInt("type"));
-		
+		while (rs.next()) {
+			question = new Question();
+			question.setNum(rs.getInt("num"));
+			question.setTitle(rs.getString("title"));
+			question.setStartdate(rs.getString("startdate"));
+			question.setEnddate(rs.getString("enddate"));
+			question.setType(rs.getInt("type"));
+		}
+
 		conn.close();
 		return question;
 	}
