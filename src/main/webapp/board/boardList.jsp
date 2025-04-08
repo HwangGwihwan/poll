@@ -8,13 +8,18 @@
 		currentPage = Integer.parseInt(request.getParameter("currentPage"));
 	}
 	
+	String search = "";
+	if (request.getParameter("search") != null) {
+		search = request.getParameter("search");
+	}
+	
 	BoardDao boardDao = new BoardDao();
 	Paging p = new Paging();
 	p.setCurrentPage(currentPage);
 	p.setRowPerPage(8);
-	int lastPage = p.getLastPage(boardDao.getTotal());
+	int lastPage = p.getLastPage(boardDao.getTotal(search));
 	
-	ArrayList<Board> boardList = boardDao.selectBoardList(p);
+	ArrayList<Board> boardList = boardDao.selectBoardList(p, search);
 %>
 
 <!DOCTYPE html>
@@ -74,15 +79,21 @@
 		<%
 			if (currentPage > 1) {
 		%>
-				<a class="btn btn-outline-primary" href='/poll/board/boardList.jsp?currentPage=<%=currentPage - 1%>'>이전</a>
+				<a class="btn btn-outline-primary" href='/poll/board/boardList.jsp?currentPage=<%=currentPage - 1%>&search=<%=search%>'>이전</a>
 		<%
 			}
 		
 			if (currentPage < lastPage) {
 		%>
-				<a class="btn btn-outline-primary" href='/poll/board/boardList.jsp?currentPage=<%=currentPage + 1%>'>다음</a>
+				<a class="btn btn-outline-primary" href='/poll/board/boardList.jsp?currentPage=<%=currentPage + 1%>&search=<%=search%>'>다음</a>
 		<%
 			}
 		%>
+		
+		<!-- 검색기능 -->
+		<form action="/poll/board/boardList.jsp?">
+			<input type="text" name="search" placeholder="제목 검색" value="<%=search%>">
+			<button type="submit">검색</button>
+		</form>
 	</body>
 </html>

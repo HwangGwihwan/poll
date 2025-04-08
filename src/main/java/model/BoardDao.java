@@ -76,19 +76,20 @@ public class BoardDao {
 		conn.close();
 	}
 	
-	public ArrayList<Board> selectBoardList(Paging p) throws ClassNotFoundException, SQLException {
+	public ArrayList<Board> selectBoardList(Paging p, String search) throws ClassNotFoundException, SQLException {
 		ArrayList<Board> boardList = new ArrayList<Board>();
 		
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "select num, name, subject, content, pos, ref, depth, regdate, pass, ip, count from board order by ref desc, pos limit ?, ?";
+		String sql = "select num, name, subject, content, pos, ref, depth, regdate, pass, ip, count from board where subject like ? order by ref desc, pos limit ?, ?";
 		
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/poll", "root", "java1234");
 		stmt = conn.prepareStatement(sql);
-		stmt.setInt(1, p.getBeginRow());
-		stmt.setInt(2, p.getRowPerPage());
+		stmt.setString(1, "%" + search + "%");
+		stmt.setInt(2, p.getBeginRow());
+		stmt.setInt(3, p.getRowPerPage());
 		rs = stmt.executeQuery();
 		
 		while (rs.next()) {
@@ -198,17 +199,18 @@ public class BoardDao {
 		conn.close();
 	}
 	
-	public int getTotal() throws ClassNotFoundException, SQLException {
+	public int getTotal(String search) throws ClassNotFoundException, SQLException {
 		int total = 0;
 		
 		Class.forName("com.mysql.cj.jdbc.Driver");
 		Connection conn = null;
 		PreparedStatement stmt = null;
 		ResultSet rs = null;
-		String sql = "select count(*) cnt from board";
+		String sql = "select count(*) cnt from board where subject like ?";
 		
 		conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/poll", "root", "java1234");
 		stmt = conn.prepareStatement(sql);
+		stmt.setString(1, "%" + search + "%");
 		rs = stmt.executeQuery();
 		rs.next();
 		total = rs.getInt("cnt");

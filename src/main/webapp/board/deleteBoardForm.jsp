@@ -44,7 +44,7 @@
 		</table>
 		<form action="/poll/board/deleteBoardAction.jsp" method="post">
 			<input type="hidden" name="num" value="<%=num%>">
-			<input type="text" name="password">
+			<input type="password" name="password">
 			<button type="submit">삭제하기</button>
 		</form>
 	</body>
