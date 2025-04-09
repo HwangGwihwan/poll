@@ -91,7 +91,7 @@
 		%>
 		
 		<!-- 검색기능 -->
-		<form action="/poll/board/boardList.jsp?">
+		<form action="/poll/board/boardList.jsp">
 			<input type="text" name="search" placeholder="제목 검색" value="<%=search%>">
 			<button type="submit">검색</button>
 		</form>
