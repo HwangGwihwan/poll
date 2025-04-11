@@ -21,6 +21,13 @@
 	String ext = originalName.substring(originalName.lastIndexOf("."));
 	// 저장에 사용할 파일 이름 : 중복방지를 위해 UUID 유틸 클래스 사용
 	String txt = (UUID.randomUUID().toString()).replace("-", "");
+	
+	// Request 입력값 유효성 검정
+	if (!ext.equals(".png")) {
+		response.sendRedirect("/poll/imageBoard/insertImageForm.jsp?msg=ErrorNotPng");
+		return; // JSP 코드진행을 종료
+	}
+	
 	String saveName = txt+ext; // 생성됨이름 뒤에 .확장자 추가
 	System.out.println(saveName);
 	

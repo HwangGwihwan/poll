@@ -12,7 +12,7 @@
 	Paging p = new Paging();
 	p.setCurrentPage(currentPage);
 	p.setRowPerPage(8);
-	ArrayList<Image> list = 	iamgeDao.selectImageList(p);
+	ArrayList<Image> list = iamgeDao.selectImageList(p);
 %>
 <!DOCTYPE html>
 <html>
